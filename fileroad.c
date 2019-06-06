@@ -6,6 +6,7 @@ typedef struct process
 	int arr_time; // 도착시간
 	int ser_time; // 실행될 시간
 	int rem_time; // 남은 시간
+	int pro_status; // 프로세스 스테이터스
 	struct process *next_pro; // 다음 프로세스 포인터
 };
 
