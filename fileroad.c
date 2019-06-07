@@ -1,6 +1,6 @@
 #include "header.h"
 
-extern int process[10000][5]; // 외부 변수 참조
+extern int process[10000][10]; // 외부 변수 참조
 
 extern int pnum;
 
