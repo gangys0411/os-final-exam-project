@@ -33,9 +33,9 @@ int main()
 			process[wait_end][4]=1; // 그 프로세스의 상태를 대기로 바꾸고 출력
 			ps_print(fp, wait_end);
 
-			if(wait_end==0)
+			if(wait_end==0) // 대기 중인 프로세스가 없다면
 			{
-				process[0][4]=2;
+				process[0][4]=2; // 들어온 프로세스의 상태를 실행중으로 바꾸고 출력
 				ps_print(fp, 0);
 			}else 
 			{
@@ -72,13 +72,13 @@ int main()
 		
 		time++; // 시간을 증가
 		
-		if(wait_end>0)
+		if(wait_end>0) // 실행 중인 프로세스가 있다면
 		{
-			process[0][3]--; // 실행중인 프로세스의 남은 시간을 감소
-			if(process[0][2]==process[0][3]+1) // 만약 처음으로 프로세스가 시작됐다면
+			if(process[0][2]==process[0][3]) // 만약 처음으로 프로세스가 시작됐다면
 			{
 				process[0][5]=time-1; // 전 시간을 첫 실행 시간으로 저장
 			}
+			process[0][3]--; // 실행중인 프로세스의 남은 시간을 감소
 		}
 		if(process[0][3]==0) // 만약 남은 시간이 0이라면
 		{
