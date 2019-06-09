@@ -9,10 +9,16 @@ void fileroad()
 {
 	FILE *fp;
 	
-	fp=fopen("process_list_1000.txt","r");
+	char file_name[30];
+
+	printf("확장자를 포함한 파일 이름을 입력해주세요...\n");
+	scanf("%s",file_name);
+
+	fp=fopen(file_name,"r");
 	if(fp==NULL)
 	{
 		printf("파일이 없습니다.\n");
+		exit(1);
 	}
 	else
 	{

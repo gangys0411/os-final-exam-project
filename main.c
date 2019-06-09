@@ -28,46 +28,48 @@ int main()
 
 	while(1)
 	{
-		if(time==process[wait_end][1]) // 현재 시간에 들어오는 프로세스가 있다면
+		while(1)
 		{
-			process[wait_end][4]=1; // 그 프로세스의 상태를 대기로 바꾸고 출력
-			ps_print(fp, wait_end);
-
-			if(wait_end==0) // 대기 중인 프로세스가 없다면
+			if(time==process[wait_end][1]) // 현재 시간에 들어오는 프로세스가 있다면
 			{
-				process[0][4]=2; // 들어온 프로세스의 상태를 실행중으로 바꾸고 출력
-				ps_print(fp, 0);
-			}else 
-			{
+				process[wait_end][4]=1; // 그 프로세스의 상태를 대기로 바꾸고 출력
+				ps_print(fp, wait_end);
 
-				for(cursor=0; cursor<wait_end; cursor++) // 대기열에 있는 프로세스를 찾아서
+				if(wait_end==0) // 대기 중인 프로세스가 없다면
 				{
-					if(process[cursor][3]>process[wait_end][3]) // 남은 시간이 더 많은 프로세스가 있다면
+					process[0][4]=2; // 들어온 프로세스의 상태를 실행중으로 바꾸고 출력
+					ps_print(fp, 0);
+				}else 
+				{
+
+					for(cursor=0; cursor<wait_end; cursor++) // 대기열에 있는 프로세스를 찾아서
 					{
-						for(int j=0; j<6; j++)
+						if(process[cursor][3]>process[wait_end][3]) // 남은 시간이 더 많은 프로세스가 있다면						
 						{
-							buffer[j]=process[wait_end][j];
-							for(int k=wait_end; k>cursor; k--) // 그 프로세스 앞으로 이동
+							for(int j=0; j<6; j++)
 							{
-								process[k][j]=process[k-1][j];
+								buffer[j]=process[wait_end][j];
+								for(int k=wait_end; k>cursor; k--) // 그 프로세스 앞으로 이동
+								{
+									process[k][j]=process[k-1][j];				
+								}
+								process[cursor][j]=buffer[j];
 							}
-							process[cursor][j]=buffer[j];
-						}
 
-						if(cursor==0) // 만약 남은 시간이 더 긴 프로세스가 실행중이었다면
-						{
-							process[1][4]=3; // 밀려난 프로세스를 중단으로 바꾸고 출력
-							ps_print(fp, 1);
+							if(cursor==0) // 만약 남은 시간이 더 긴 프로세스가 실행중이었다면
+							{
+								process[1][4]=3; // 밀려난 프로세스를 중단으로 바꾸고 출력
+								ps_print(fp, 1);
 
-							process[0][4]=2; // 지금 들어온 프로세스를 실행중으로 바꾸고 출력
-							ps_print(fp, 0);
-
+								process[0][4]=2; // 지금 들어온 프로세스를 실행중으로 바꾸고 출력
+								ps_print(fp, 0);
+							}
 						}
 					}
 				}
-			}
-			
-			wait_end++; // 대기열의 수를 늘림
+
+				wait_end++; // 대기열의 수를 늘림
+			}else break;
 		}
 		
 		time++; // 시간을 증가

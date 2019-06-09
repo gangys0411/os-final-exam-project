@@ -70,4 +70,5 @@ void pr_print(FILE *fp)
 		}
 		fprintf(fp,"\n");
 	}
+	printf("결과는 result.txt에 저장됩니다.\n");
 }
